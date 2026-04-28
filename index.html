@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohamed Khabir — Java Backend Engineer</title>
+  <meta name="description" content="Senior Java Backend Engineer & QA Automation | 7+ Years | Spring Boot, Kafka, Microservices" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ── BASE RESET ────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #06091a;
+      --bg2:       #0b1029;
+      --bg3:       #101535;
+      --surface:   #131a3a;
+      --border:    #1e2a52;
+      --cyan:      #00e5c3;
+      --cyan-dim:  #00b89c;
+      --gold:      #ffd166;
+      --purple:    #8b6fff;
+      --red:       #ff6b6b;
+      --text:      #dce6ff;
+      --muted:     #6b7ca8;
+      --font-code: 'Fira Code', monospace;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: var(--cyan); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--gold); }
+
+    /* ── SCROLLBAR ─────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cyan-dim); }
+
+    /* ── CANVAS PARTICLES ──────────────────────────── */
+    #bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none; opacity: .5;
+    }
+
+    /* ── NOISE OVERLAY ─────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .3;
+    }
+
+    /* ── WRAPPER ────────────────────────────────────── */
+    .wrap { position: relative; z-index: 2; }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(6,9,26,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      transition: background .3s;
+    }
+    .nav-logo {
+      font-family: var(--font-code);
+      font-size: .9rem;
+      color: var(--cyan);
+      letter-spacing: .04em;
+    }
+    .nav-logo span { color: var(--muted); }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-code);
+      font-size: .78rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* ── LANG TOGGLE ─────────────────────────────────── */
+    .lang-toggle {
+      display: flex; align-items: center; gap: .4rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: .25rem .3rem;
+      cursor: pointer;
+    }
+    .lang-btn {
+      font-family: var(--font-code);
+      font-size: .72rem;
+      font-weight: 600;
+      padding: .2rem .6rem;
+      border-radius: 14px;
+      transition: all .25s;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+    .lang-btn.active {
+      background: var(--cyan);
+      color: var(--bg);
+    }
+
+    /* ── HERO ────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 6rem 4rem;
+      gap: 4rem;
+      position: relative;
+    }
+    .hero-left { position: relative; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(0,229,195,.07);
+      border: 1px solid rgba(0,229,195,.2);
+      border-radius: 20px;
+      padding: .3rem .9rem;
+      font-family: var(--font-code);
+      font-size: .72rem;
+      color: var(--cyan);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .3; transform: scale(.7); }
+    }
+    .hero-name {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin-bottom: 1rem;
+    }
+    .hero-name .first { display: block; color: var(--text); }
+    .hero-name .last {
+      display: block;
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title {
+      font-family: var(--font-code);
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      min-height: 1.5em;
+    }
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 1em;
+      background: var(--cyan);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink .9s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.75rem;
+      border-radius: 8px;
+      font-family: var(--font-code);
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      transition: all .25s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--cyan);
+      color: var(--bg);
+    }
+    .btn-primary:hover {
+      background: var(--gold);
+      color: var(--bg);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255,209,102,.25);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--cyan);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--cyan);
+      background: rgba(0,229,195,.06);
+      transform: translateY(-2px);
+    }
+
+    /* ── HERO STATS ──────────────────────────────────── */
+    .hero-stats {
+      display: flex; gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { text-align: left; }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--font-code);
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-top: .25rem;
+    }
+
+    /* ── HERO RIGHT (photo card) ─────────────────────── */
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .photo-frame {
+      position: relative;
+      width: 320px; height: 380px;
+    }
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--gold));
+      border-radius: 24px;
+      z-index: 0;
+      animation: rotate-gradient 6s linear infinite;
+    }
+    @keyframes rotate-gradient {
+      0%   { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    .photo-inner {
+      position: relative; z-index: 1;
+      width: 100%; height: 100%;
+      background: var(--bg2);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+    .photo-inner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Fallback avatar if no photo */
+    .photo-fallback {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--bg3) 0%, var(--surface) 100%);
+      font-family: var(--font-head);
+      font-size: 5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .photo-badge {
+      position: absolute;
+      bottom: -16px; right: -16px;
+      z-index: 2;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: .75rem 1.1rem;
+      backdrop-filter: blur(8px);
+    }
+    .photo-badge-row {
+      display: flex; align-items: center; gap: .5rem;
+      font-family: var(--font-code);
+      font-size: .72rem;
+      color: var(--cyan);
+    }
+    .photo-badge-row .dot {
+      width: 7px; height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse-dot 2s infinite;
+    }
+    .floating-tags {
+      position: absolute;
+      left: -50px; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: .5rem;
+    }
+    .ftag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .3rem .7rem;
+      font-family: var(--font-code);
+      font-size: .68rem;
+      color: var(--muted);
+      white-space: nowrap;
+      animation: float-tag 4s ease-in-out infinite;
+    }
+    .ftag:nth-child(2) { animation-delay: .8s; }
+    .ftag:nth-child(3) { animation-delay: 1.6s; }
+    @keyframes float-tag {
+      0%,100%{transform:translateX(0)} 50%{transform:translateX(-6px)}
+    }
+
+    /* ── SECTION BASE ────────────────────────────────── */
+    section {
+      padding: 6rem 6rem;
+      position: relative;
+    }
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
+    .section-tag {
+      font-family: var(--font-code);
+      font-size: .72rem;
+      color: var(--cyan);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .section-tag::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--cyan);
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -.02em;
+      line-height: 1.1;
+    }
+    .section-title em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--cyan), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── REVEAL ANIMATION ─────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ── ABOUT ───────────────────────────────────────── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.8;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-highlight {
+      background: var(--surface);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 10px 10px 0;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      font-family: var(--font-code);
+      font-size: .85rem;
+      color: var(--cyan);
+      line-height: 1.7;
+    }
+    .about-cards {
+      display: grid; gap: 1rem;
+    }
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .about-card:hover {
+      border-color: var(--cyan);
+      transform: translateX(4px);
+    }
+    .card-icon {
+      width: 40px; height: 40px;
+      background: rgba(0,229,195,.08);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .card-content h4 {
+      font-family: var(--font-head);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .25rem;
+    }
+    .card-content p {
+      font-size: .82rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── SKILLS ──────────────────────────────────────── */
+    #skills { background: var(--bg); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-category {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .skill-category:hover {
+      border-color: rgba(0,229,195,.3);
+      transform: translateY(-3px);
+    }
+    .skill-cat-header {
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1.25rem;
+    }
+    .skill-cat-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .skill-cat-title {
+      font-family: var(--font-head);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: .5rem;
+    }
+    .skill-tag {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .25rem .65rem;
+      font-family: var(--font-code);
+      font-size: .72rem;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .skill-tag:hover {
+      background: rgba(0,229,195,.07);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+    .skill-tag.hot {
+      background: rgba(0,229,195,.1);
+      border-color: rgba(0,229,195,.3);
+      color: var(--cyan);
+    }
+
+    /* ── EXPERIENCE ──────────────────────────────────── */
+    #experience { background: var(--bg2); }
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--cyan), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-left: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -25px; top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--cyan);
+      border: 2px solid var(--bg2);
+      box-shadow: 0 0 10px rgba(0,229,195,.5);
+    }
+    .timeline-item.current::before {
+      animation: pulse-dot 2s infinite;
+    }
+    .job-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 1rem;
+    }
+    .job-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .job-company {
+      font-family: var(--font-code);
+      font-size: .82rem;
+      color: var(--cyan);
+      margin-top: .2rem;
+    }
+    .job-company a { color: var(--cyan); }
+    .job-meta {
+      display: flex; flex-direction: column; align-items: flex-end; gap: .25rem;
+    }
+    .job-period {
+      font-family: var(--font-code);
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--surface);
+      padding: .2rem .6rem;
+      border-radius: 6px;
+    }
+    .job-location {
+      font-family: var(--font-code);
+      font-size: .68rem;
+      color: var(--purple);
+    }
+    .job-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color .25s;
+    }
+    .job-card:hover { border-color: rgba(0,229,195,.2); }
+    .job-bullets {
+      list-style: none;
+      display: flex; flex-direction: column; gap: .5rem;
+      margin-bottom: 1.25rem;
+    }
+    .job-bullets li {
+      font-size: .88rem;
+      color: var(--muted);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.6;
+    }
+    .job-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-size: .75rem;
+      top: .15em;
+    }
+    .challenge-block {
+      background: rgba(139,111,255,.06);
+      border: 1px solid rgba(139,111,255,.2);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-top: 1rem;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem;
+    }
+    .cblock-item { }
+    .cblock-label {
+      font-family: var(--font-code);
+      font-size: .65rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: .25rem;
+    }
+    .cblock-label.c { color: var(--red); }
+    .cblock-label.s { color: var(--gold); }
+    .cblock-label.r { color: var(--cyan); }
+    .cblock-text {
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .job-tags {
+      display: flex; flex-wrap: wrap; gap: .4rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .job-tag {
+      font-family: var(--font-code);
+      font-size: .65rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: .15rem .5rem;
+      color: var(--muted);
+    }
+
+    /* ── PROJECTS ────────────────────────────────────── */
+    #projects { background: var(--bg); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex; flex-direction: column;
+      transition: border-color .25s, transform .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .project-card:hover::before { opacity: 1; }
+    .project-card:hover {
+      border-color: rgba(0,229,195,.3);
+      transform: translateY(-5px);
+    }
+    .pc-cyan::before  { background: linear-gradient(90deg, var(--cyan), var(--purple)); }
+    .pc-gold::before  { background: linear-gradient(90deg, var(--gold), var(--red)); }
+    .pc-purple::before{ background: linear-gradient(90deg, var(--purple), var(--cyan)); }
+    .project-country {
+      font-family: var(--font-code);
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+    .project-name {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: .5rem;
+    }
+    .project-desc {
+      font-size: .85rem;
+      color: var(--muted);
+      flex: 1;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .project-stack {
+      display: flex; flex-wrap: wrap; gap: .4rem;
+      margin-bottom: 1.25rem;
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-family: var(--font-code);
+      font-size: .75rem;
+      color: var(--cyan);
+      border: 1px solid rgba(0,229,195,.2);
+      border-radius: 6px;
+      padding: .3rem .75rem;
+      transition: all .2s;
+    }
+    .project-link:hover {
+      background: rgba(0,229,195,.1);
+      color: var(--cyan);
+    }
+
+    /* ── EDUCATION & CERTS ───────────────────────────── */
+    #education { background: var(--bg2); }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .edu-card:hover {
+      border-color: rgba(0,229,195,.3);
+      transform: translateY(-3px);
+    }
+    .edu-year {
+      font-family: var(--font-code);
+      font-size: .72rem;
+      color: var(--gold);
+      letter-spacing: .06em;
+      margin-bottom: .5rem;
+    }
+    .edu-degree {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .25rem;
+      line-height: 1.3;
+    }
+    .edu-school {
+      font-family: var(--font-code);
+      font-size: .78rem;
+      color: var(--cyan);
+      margin-bottom: .75rem;
+    }
+    .edu-detail {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    .cert-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex; align-items: center; gap: .75rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .cert-card:hover {
+      border-color: rgba(255,209,102,.3);
+      transform: translateY(-2px);
+    }
+    .cert-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .cert-name {
+      font-family: var(--font-code);
+      font-size: .75rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .cert-issuer {
+      font-size: .68rem;
+      color: var(--muted);
+      margin-top: .1rem;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────── */
+    #contact { background: var(--bg); }
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .contact-text h3 {
+      font-family: var(--font-head);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .contact-text p {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+    .contact-links {
+      display: flex; flex-direction: column; gap: .75rem;
+    }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .9rem 1.25rem;
+      text-decoration: none;
+      transition: border-color .25s, transform .25s;
+    }
+    .contact-item:hover {
+      border-color: var(--cyan);
+      transform: translateX(6px);
+      color: var(--text);
+    }
+    .contact-item-icon {
+      width: 36px; height: 36px;
+      background: rgba(0,229,195,.08);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-item-text span {
+      display: block;
+      font-family: var(--font-code);
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .contact-item-text strong {
+      font-family: var(--font-body);
+      font-size: .9rem;
+      color: var(--text);
+      font-weight: 400;
+    }
+    .contact-code {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      font-family: var(--font-code);
+      font-size: .82rem;
+      line-height: 2;
+    }
+    .code-comment { color: var(--muted); }
+    .code-key { color: var(--purple); }
+    .code-str { color: var(--gold); }
+    .code-val { color: var(--cyan); }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative; z-index: 2;
+    }
+    .footer-copy {
+      font-family: var(--font-code);
+      font-size: .72rem;
+      color: var(--muted);
+    }
+    .footer-made {
+      font-family: var(--font-code);
+      font-size: .72rem;
+      color: var(--muted);
+    }
+    .footer-made span { color: var(--red); }
+
+    /* ── MOBILE ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      #hero, .about-grid, .contact-wrapper, .edu-grid {
+        grid-template-columns: 1fr;
+      }
+      section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      #hero { padding: 7rem 1.5rem 4rem; gap: 3rem; }
+      .hero-right { order: -1; }
+      .photo-frame { width: 220px; height: 260px; }
+      .floating-tags { display: none; }
+      .challenge-block { grid-template-columns: 1fr; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<div class="wrap">
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo">
+    <span>~/</span>mohamedkhabir
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about"   data-i18n="nav.about">About</a></li>
+    <li><a href="#skills"  data-i18n="nav.skills">Skills</a></li>
+    <li><a href="#experience" data-i18n="nav.exp">Experience</a></li>
+    <li><a href="#projects"   data-i18n="nav.proj">Projects</a></li>
+    <li><a href="#contact"    data-i18n="nav.contact">Contact</a></li>
+  </ul>
+  <div class="lang-toggle" onclick="toggleLang()">
+    <div class="lang-btn active" id="btn-en">EN</div>
+    <div class="lang-btn" id="btn-fr">FR</div>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge" data-i18n="hero.badge">Available for new opportunities</div>
+    <h1 class="hero-name">
+      <span class="first">Mohamed</span>
+      <span class="last">Khabir</span>
+    </h1>
+    <p class="hero-title">
+      <span id="typed-text"></span><span class="cursor"></span>
+    </p>
+    <p class="hero-desc" data-i18n="hero.desc">
+      Senior Java Backend Engineer building high-load distributed systems for clients across the Gulf, Europe and MENA. 7+ years shipping production platforms from architecture to deployment — independently.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary" data-i18n="hero.cta1">Let's work together</a>
+      <a href="https://github.com/mohamedkhabir" target="_blank" class="btn btn-outline" data-i18n="hero.cta2">View GitHub →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">7+</div>
+        <div class="stat-label" data-i18n="hero.stat1">Years exp.</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">8</div>
+        <div class="stat-label" data-i18n="hero.stat2">Live platforms</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-label" data-i18n="hero.stat3">Countries</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="floating-tags">
+      <div class="ftag">☕ Spring Boot</div>
+      <div class="ftag">⚡ Apache Kafka</div>
+      <div class="ftag">🐘 PostgreSQL</div>
+    </div>
+    <div class="photo-frame">
+      <div class="photo-inner">
+        <img src="assets/photo.png" alt="Mohamed Khabir"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="photo-fallback" style="display:none;">MK</div>
+      </div>
+      <div class="photo-badge">
+        <div class="photo-badge-row">
+          <div class="dot"></div>
+          <span data-i18n="hero.badge2">Open to opportunities</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ──────────────────────────────────────────── -->
+<section id="about">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="about.tag">About me</div>
+    <h2 class="section-title" data-i18n="about.title">Distributed systems <em>done right</em></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal reveal-delay-1">
+      <p data-i18n="about.p1">I build backends that don't fall over when 10,000 users show up at once. With a <strong>Research Master's in Distributed Computing</strong> from University of Sousse and 7+ years in production environments, I've developed a taste for solving problems that most engineers avoid — high concurrency, event-driven architecture, real-time systems at scale.</p>
+      <p data-i18n="about.p2">I've shipped platforms used daily in <strong>Saudi Arabia, Oman, UAE and Tunisia</strong> — across industries like logistics, ERP, fintech, and e-commerce. I don't just write code; I own the full delivery cycle from architecture decisions to Nginx configs to Grafana dashboards.</p>
+      <p data-i18n="about.p3">Trilingual in Arabic, French and English. I thrive equally in Gulf and European project contexts — which means I understand the market, the expectations, and the compliance requirements (yes, ZATCA included 😄).</p>
+      <div class="about-highlight">
+        // Currently at Rest ERP (Saudi Arabia)<br>
+        // Open to: Remote / Hybrid / Relocation<br>
+        // Target markets: 🇪🇺 EU · 🇸🇦 Gulf · 🌍 MENA
+      </div>
+    </div>
+    <div class="about-cards reveal reveal-delay-2">
+      <div class="about-card">
+        <div class="card-icon">⚡</div>
+        <div class="card-content">
+          <h4 data-i18n="card1.title">Event-Driven Architecture</h4>
+          <p data-i18n="card1.desc">Kafka-based microservices with guaranteed delivery — no message ever lost, even when services go down.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="card-icon">🔐</div>
+        <div class="card-content">
+          <h4 data-i18n="card2.title">Multi-Tenant Systems</h4>
+          <p data-i18n="card2.desc">Complex PostgreSQL schemas with tenant isolation, privilege management, and query optimization built-in.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="card-icon">🤖</div>
+        <div class="card-content">
+          <h4 data-i18n="card3.title">AI Integration</h4>
+          <p data-i18n="card3.desc">Built natural-language-to-SQL systems using the Anthropic API — any question, any database, no technical knowledge needed.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="card-icon">📊</div>
+        <div class="card-content">
+          <h4 data-i18n="card4.title">Load Testing & Monitoring</h4>
+          <p data-i18n="card4.desc">Grafana + custom load test scripts to find the breaking point before production does it for you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ─────────────────────────────────────────── -->
+<section id="skills">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="skills.tag">Tech stack</div>
+    <h2 class="section-title" data-i18n="skills.title">Tools I <em>actually ship with</em></h2>
+  </div>
+  <div class="skills-grid">
+
+    <div class="skill-category reveal reveal-delay-1">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon" style="background:rgba(0,229,195,.1)">☕</div>
+        <div class="skill-cat-title" data-i18n="sk.backend">Backend</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Java</span>
+        <span class="skill-tag hot">Spring Boot</span>
+        <span class="skill-tag">Spring MVC</span>
+        <span class="skill-tag">Spring Batch</span>
+        <span class="skill-tag">Hibernate</span>
+        <span class="skill-tag hot">Microservices</span>
+        <span class="skill-tag hot">REST API</span>
+        <span class="skill-tag">C# / .NET</span>
+      </div>
+    </div>
+
+    <div class="skill-category reveal reveal-delay-2">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon" style="background:rgba(139,111,255,.1)">🗄️</div>
+        <div class="skill-cat-title" data-i18n="sk.db">Databases</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">PostgreSQL</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">Oracle</span>
+        <span class="skill-tag">SQL Server</span>
+        <span class="skill-tag hot">SQL Optimization</span>
+      </div>
+    </div>
+
+    <div class="skill-category reveal reveal-delay-3">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon" style="background:rgba(255,107,107,.1)">⚡</div>
+        <div class="skill-cat-title" data-i18n="sk.msg">Messaging & Events</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Apache Kafka</span>
+        <span class="skill-tag">RabbitMQ</span>
+        <span class="skill-tag hot">WebSocket/STOMP</span>
+        <span class="skill-tag">WebRTC/LiveKit</span>
+        <span class="skill-tag">Firebase FCM</span>
+        <span class="skill-tag">Twilio</span>
+      </div>
+    </div>
+
+    <div class="skill-category reveal reveal-delay-1">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon" style="background:rgba(255,209,102,.1)">🚀</div>
+        <div class="skill-cat-title" data-i18n="sk.devops">CI/CD & DevOps</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Jenkins</span>
+        <span class="skill-tag hot">GitLab CI/CD</span>
+        <span class="skill-tag hot">Docker</span>
+        <span class="skill-tag">Nginx</span>
+        <span class="skill-tag">Ubuntu</span>
+        <span class="skill-tag">Redis</span>
+        <span class="skill-tag">Grafana</span>
+      </div>
+    </div>
+
+    <div class="skill-category reveal reveal-delay-2">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon" style="background:rgba(0,229,195,.07)">☁️</div>
+        <div class="skill-cat-title" data-i18n="sk.cloud">Cloud & Payments</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">Microsoft Azure</span>
+        <span class="skill-tag">GCP</span>
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">CDN</span>
+        <span class="skill-tag">Stripe</span>
+        <span class="skill-tag">HyperPay</span>
+        <span class="skill-tag">Moyasar</span>
+        <span class="skill-tag">Thawani</span>
+      </div>
+    </div>
+
+    <div class="skill-category reveal reveal-delay-3">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon" style="background:rgba(139,111,255,.1)">🧪</div>
+        <div class="skill-cat-title" data-i18n="sk.qa">QA & Testing</div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Selenium/Java</span>
+        <span class="skill-tag hot">Playwright</span>
+        <span class="skill-tag">JUnit</span>
+        <span class="skill-tag">Postman</span>
+        <span class="skill-tag">Swagger</span>
+        <span class="skill-tag">Load Testing</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ─────────────────────────────────────── -->
+<section id="experience">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="exp.tag">Experience</div>
+    <h2 class="section-title" data-i18n="exp.title">Where I've <em>shipped things</em></h2>
+  </div>
+  <div class="timeline">
+
+    <!-- Rest ERP -->
+    <div class="timeline-item current reveal">
+      <div class="job-header">
+        <div>
+          <div class="job-title" data-i18n="j1.title">Java Backend Developer & ERP Integration</div>
+          <div class="job-company"><a href="https://rest.net.sa" target="_blank">Rest ERP</a> — <span data-i18n="j1.type">Technical Project Lead</span></div>
+        </div>
+        <div class="job-meta">
+          <div class="job-period">Jul 2023 – <span data-i18n="present">Present</span></div>
+          <div class="job-location">🇸🇦 Saudi Arabia</div>
+        </div>
+      </div>
+      <div class="job-card">
+        <ul class="job-bullets">
+          <li data-i18n="j1.b1">Built the Java/Spring Boot backend of a multi-tenant ERP platform designed to handle high user load — 7 modules (Dashboard, CRM, Super Admin, Help Center, Support, Website, Mobile).</li>
+          <li data-i18n="j1.b2">Implemented microservices with Apache Kafka for event-driven communication — no message lost even when a service goes down.</li>
+          <li data-i18n="j1.b3">Integrated real-time communication via WebRTC/LiveKit for video/audio, STOMP over WebSocket for chat, and Grafana for full stack monitoring.</li>
+          <li data-i18n="j1.b4">Built a natural-language-to-SQL AI system using Anthropic API — users ask questions in plain language, the system queries the database directly.</li>
+          <li data-i18n="j1.b5">Solved ZATCA e-invoicing integration (Saudi government mandate) by reverse-engineering the SDK over 4–6 days with zero official support.</li>
+        </ul>
+        <div class="challenge-block">
+          <div class="cblock-item">
+            <div class="cblock-label c" data-i18n="label.challenge">Challenge</div>
+            <div class="cblock-text" data-i18n="j1.c">ZATCA SDK with no usable documentation</div>
+          </div>
+          <div class="cblock-item">
+            <div class="cblock-label s" data-i18n="label.solution">Solution</div>
+            <div class="cblock-text" data-i18n="j1.s">Reverse-engineered the SDK, learned e-invoicing standards from scratch</div>
+          </div>
+          <div class="cblock-item">
+            <div class="cblock-label r" data-i18n="label.result">Result</div>
+            <div class="cblock-text" data-i18n="j1.r">Full ZATCA compliance, Saudi government approved</div>
+          </div>
+        </div>
+        <div class="job-tags">
+          <span class="job-tag">Java</span><span class="job-tag">Spring Boot</span>
+          <span class="job-tag">Apache Kafka</span><span class="job-tag">PostgreSQL</span>
+          <span class="job-tag">WebRTC/LiveKit</span><span class="job-tag">Angular</span>
+          <span class="job-tag">Redis</span><span class="job-tag">Jenkins</span>
+          <span class="job-tag">Grafana</span><span class="job-tag">Anthropic API</span>
+          <span class="job-tag">ZATCA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wanis -->
+    <div class="timeline-item reveal">
+      <div class="job-header">
+        <div>
+          <div class="job-title" data-i18n="j2.title">Java Spring Boot Backend Developer</div>
+          <div class="job-company"><a href="https://wanis.io" target="_blank">Wanis</a> — <span data-i18n="j2.type">Taxi Booking Platform</span></div>
+        </div>
+        <div class="job-meta">
+          <div class="job-period">Jan 2025 – Dec 2025</div>
+          <div class="job-location">🇹🇳 Tunisia</div>
+        </div>
+      </div>
+      <div class="job-card">
+        <ul class="job-bullets">
+          <li data-i18n="j2.b1">Complete Java/Spring Boot backend — real-time ride notifications via WebSocket, Cron Jobs, and automated mailing.</li>
+          <li data-i18n="j2.b2">Discovered Uber's H3 SDK to replace Google Maps — reduced infrastructure costs significantly and made the project financially viable.</li>
+          <li data-i18n="j2.b3">Replaced RabbitMQ with Apache Kafka for driver/passenger matching — zero message loss, real-time performance.</li>
+          <li data-i18n="j2.b4">Solved concurrency issues revealed by load tests via Grafana monitoring, then migrated to higher-resource infrastructure.</li>
+        </ul>
+        <div class="challenge-block">
+          <div class="cblock-item">
+            <div class="cblock-label c" data-i18n="label.challenge">Challenge</div>
+            <div class="cblock-text" data-i18n="j2.c">Google Maps costs killing project ROI</div>
+          </div>
+          <div class="cblock-item">
+            <div class="cblock-label s" data-i18n="label.solution">Solution</div>
+            <div class="cblock-text" data-i18n="j2.s">Adopted Uber's H3 hexagonal grid SDK</div>
+          </div>
+          <div class="cblock-item">
+            <div class="cblock-label r" data-i18n="label.result">Result</div>
+            <div class="cblock-text" data-i18n="j2.r">Massive cost reduction, project profitable again</div>
+          </div>
+        </div>
+        <div class="job-tags">
+          <span class="job-tag">Java</span><span class="job-tag">Spring Boot</span>
+          <span class="job-tag">Apache Kafka</span><span class="job-tag">H3 SDK</span>
+          <span class="job-tag">WebSocket</span><span class="job-tag">Redis</span>
+          <span class="job-tag">Twilio</span><span class="job-tag">Grafana</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Safaqat -->
+    <div class="timeline-item reveal">
+      <div class="job-header">
+        <div>
+          <div class="job-title" data-i18n="j3.title">Java Spring Boot Backend Developer</div>
+          <div class="job-company"><a href="https://safaqat.om" target="_blank">Safaqat</a> — <span data-i18n="j3.type">Tender Platform (Gov + Private)</span></div>
+        </div>
+        <div class="job-meta">
+          <div class="job-period">May 2023 – Oct 2024</div>
+          <div class="job-location">🇴🇲 Oman</div>
+        </div>
+      </div>
+      <div class="job-card">
+        <ul class="job-bullets">
+          <li data-i18n="j3.b1">Multi-tenant Spring Boot backend on PostgreSQL — adapted for both government and private procurement workflows.</li>
+          <li data-i18n="j3.b2">Sub-user system with fine-grained privilege management, real-time chat, CMS for tender forms, complete Swagger docs.</li>
+        </ul>
+        <div class="job-tags">
+          <span class="job-tag">Java</span><span class="job-tag">Spring Boot</span>
+          <span class="job-tag">PostgreSQL</span><span class="job-tag">Multi-tenant</span>
+          <span class="job-tag">WebSocket</span><span class="job-tag">Swagger</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coaches Cr8ive -->
+    <div class="timeline-item reveal">
+      <div class="job-header">
+        <div>
+          <div class="job-title" data-i18n="j4.title">Java Spring Boot Backend Developer</div>
+          <div class="job-company"><a href="https://cr8ive.ae" target="_blank">Coaches – Cr8ive</a> — <span data-i18n="j4.type">SaaS Coaching Platform</span></div>
+        </div>
+        <div class="job-meta">
+          <div class="job-period">Jul 2023 – Sep 2024</div>
+          <div class="job-location">🇦🇪 UAE</div>
+        </div>
+      </div>
+      <div class="job-card">
+        <ul class="job-bullets">
+          <li data-i18n="j4.b1">Multi-tenant platform for online course sales (live/recorded), consultations, and e-wallet management.</li>
+          <li data-i18n="j4.b2">Integrated Moyasar, Stripe and HyperPay — covering both local and international payment markets.</li>
+        </ul>
+        <div class="job-tags">
+          <span class="job-tag">Java</span><span class="job-tag">Spring Boot</span>
+          <span class="job-tag">PostgreSQL</span><span class="job-tag">Stripe</span>
+          <span class="job-tag">HyperPay</span><span class="job-tag">Moyasar</span>
+          <span class="job-tag">WebSocket/STOMP</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- .NET Huna + Etbaaonline -->
+    <div class="timeline-item reveal">
+      <div class="job-header">
+        <div>
+          <div class="job-title" data-i18n="j5.title">.NET Backend Developer</div>
+          <div class="job-company">Huna + Etbaaonline — <span data-i18n="j5.type">Product Approval & Online Printing</span></div>
+        </div>
+        <div class="job-meta">
+          <div class="job-period">Jan 2025 – Dec 2025</div>
+          <div class="job-location">🇴🇲 Oman</div>
+        </div>
+      </div>
+      <div class="job-card">
+        <ul class="job-bullets">
+          <li data-i18n="j5.b1">C#/.NET + PostgreSQL APIs for complex approval workflows, push notifications via FCM, real-time communication.</li>
+          <li data-i18n="j5.b2">Online printing platform with img.ly 3D preview, Thawani payment gateway, Redis caching, Azure deployment.</li>
+        </ul>
+        <div class="job-tags">
+          <span class="job-tag">C#</span><span class="job-tag">.NET</span>
+          <span class="job-tag">PostgreSQL</span><span class="job-tag">Azure</span>
+          <span class="job-tag">FCM</span><span class="job-tag">Thawani</span>
+          <span class="job-tag">Redis</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RavenApp -->
+    <div class="timeline-item reveal">
+      <div class="job-header">
+        <div>
+          <div class="job-title" data-i18n="j6.title">Java Consultant</div>
+          <div class="job-company"><a href="https://ravenapp.ae" target="_blank">RavenApp – Cr8ive</a> — <span data-i18n="j6.type">Logistics Platform</span></div>
+        </div>
+        <div class="job-meta">
+          <div class="job-period">Aug 2022 – May 2023</div>
+          <div class="job-location">🇦🇪 UAE</div>
+        </div>
+      </div>
+      <div class="job-card">
+        <ul class="job-bullets">
+          <li data-i18n="j6.b1">RESTful APIs for parcel shipping with carrier selection and home pickup, OAuth auth, one-to-one chat, Stripe.</li>
+          <li data-i18n="j6.b2">Code reviews and technical mentoring of junior developers — Angular components and GitLab CI/CD pipelines.</li>
+        </ul>
+        <div class="job-tags">
+          <span class="job-tag">Java</span><span class="job-tag">Spring Boot</span>
+          <span class="job-tag">OAuth</span><span class="job-tag">Stripe</span>
+          <span class="job-tag">Angular</span><span class="job-tag">GitLab CI/CD</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PROJECTS ────────────────────────────────────────── -->
+<section id="projects">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="proj.tag">Projects</div>
+    <h2 class="section-title" data-i18n="proj.title">Things I've <em>built & owned</em></h2>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card pc-cyan reveal reveal-delay-1">
+      <div class="project-country">🇸🇦 Saudi Arabia</div>
+      <div class="project-name">Rest ERP</div>
+      <p class="project-desc" data-i18n="pr1.desc">Multi-tenant ERP with 7 modules, Kafka event-driven architecture, ZATCA e-invoicing compliance, AI-powered natural language database queries via Anthropic API, WebRTC video calls with LiveKit.</p>
+      <div class="project-stack">
+        <span class="skill-tag">Spring Boot</span><span class="skill-tag">Kafka</span>
+        <span class="skill-tag">PostgreSQL</span><span class="skill-tag">Angular</span>
+        <span class="skill-tag">LiveKit</span><span class="skill-tag">Anthropic</span>
+      </div>
+      <a href="https://rest.net.sa" target="_blank" class="project-link">🔗 rest.net.sa →</a>
+    </div>
+
+    <div class="project-card pc-gold reveal reveal-delay-2">
+      <div class="project-country">🇹🇳 Tunisia</div>
+      <div class="project-name">Wanis</div>
+      <p class="project-desc" data-i18n="pr2.desc">Real-time taxi booking app — replaced Google Maps with Uber's H3 hexagonal grid SDK, replaced RabbitMQ with Kafka for real-time matching, solved concurrency issues under load via Grafana monitoring.</p>
+      <div class="project-stack">
+        <span class="skill-tag">Spring Boot</span><span class="skill-tag">Kafka</span>
+        <span class="skill-tag">H3 SDK</span><span class="skill-tag">Redis</span>
+        <span class="skill-tag">WebSocket</span><span class="skill-tag">Twilio</span>
+      </div>
+      <a href="https://wanis.io" target="_blank" class="project-link">🔗 wanis.io →</a>
+    </div>
+
+    <div class="project-card pc-purple reveal reveal-delay-3">
+      <div class="project-country">🇴🇲 Oman</div>
+      <div class="project-name">Safaqat</div>
+      <p class="project-desc" data-i18n="pr3.desc">Multi-tenant government tender platform — sub-user privilege system, CMS for tender forms, real-time chat, complete Swagger documentation, SQL-optimized for high query loads.</p>
+      <div class="project-stack">
+        <span class="skill-tag">Spring Boot</span><span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Multi-tenant</span><span class="skill-tag">WebSocket</span>
+        <span class="skill-tag">Swagger</span>
+      </div>
+      <a href="https://safaqat.om" target="_blank" class="project-link">🔗 safaqat.om →</a>
+    </div>
+
+    <div class="project-card pc-cyan reveal reveal-delay-1">
+      <div class="project-country">🇦🇪 UAE</div>
+      <div class="project-name">Coaches – Cr8ive</div>
+      <p class="project-desc" data-i18n="pr4.desc">SaaS coaching platform — live/recorded course sales, e-wallet, multi-payment gateway support (Stripe, Moyasar, HyperPay), multi-tenant Spring Boot architecture.</p>
+      <div class="project-stack">
+        <span class="skill-tag">Spring Boot</span><span class="skill-tag">Stripe</span>
+        <span class="skill-tag">HyperPay</span><span class="skill-tag">Moyasar</span>
+        <span class="skill-tag">WebSocket/STOMP</span>
+      </div>
+      <a href="https://cr8ive.ae" target="_blank" class="project-link">🔗 cr8ive.ae →</a>
+    </div>
+
+    <div class="project-card pc-gold reveal reveal-delay-2">
+      <div class="project-country">🇴🇲 Oman</div>
+      <div class="project-name">Etbaaonline</div>
+      <p class="project-desc" data-i18n="pr5.desc">Online printing platform with real-time 3D product preview via img.ly, complete invoicing system, Thawani payment gateway, C#/.NET + PostgreSQL backend deployed on Azure.</p>
+      <div class="project-stack">
+        <span class="skill-tag">C# / .NET</span><span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Thawani</span><span class="skill-tag">Azure</span>
+        <span class="skill-tag">img.ly</span><span class="skill-tag">Redis</span>
+      </div>
+      <a href="https://etbaaonline.com" target="_blank" class="project-link">🔗 etbaaonline.com →</a>
+    </div>
+
+    <div class="project-card pc-purple reveal reveal-delay-3">
+      <div class="project-country">🇦🇪 UAE</div>
+      <div class="project-name">RavenApp</div>
+      <p class="project-desc" data-i18n="pr6.desc">Logistics platform for parcel shipping with carrier selection and home pickup. OAuth, one-to-one chat, Stripe payments, Angular frontend, GitLab CI/CD, junior developer mentoring.</p>
+      <div class="project-stack">
+        <span class="skill-tag">Spring Boot</span><span class="skill-tag">OAuth</span>
+        <span class="skill-tag">Stripe</span><span class="skill-tag">Angular</span>
+        <span class="skill-tag">GitLab CI/CD</span>
+      </div>
+      <a href="https://ravenapp.ae" target="_blank" class="project-link">🔗 ravenapp.ae →</a>
+    </div>
+
+    <!-- GitHub challenge card -->
+    <div class="project-card pc-cyan reveal reveal-delay-1">
+      <div class="project-country">🏦 BancoLuso – Adentis Portugal</div>
+      <div class="project-name">b-payments</div>
+      <p class="project-desc" data-i18n="pr7.desc">Technical challenge — Real-Time Payment Status API built with Java 17, Spring Boot 3.x, PostgreSQL, Kafka, and Docker. Idempotency with pessimistic locking, DynamicResponse DTO pattern, full test coverage.</p>
+      <div class="project-stack">
+        <span class="skill-tag hot">Java 17</span><span class="skill-tag hot">Spring Boot 3</span>
+        <span class="skill-tag">Kafka</span><span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Docker</span>
+      </div>
+      <a href="https://github.com/mohamedkhabir/b-payments" target="_blank" class="project-link">⭐ View on GitHub →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── EDUCATION ───────────────────────────────────────── -->
+<section id="education">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="edu.tag">Education & Certifications</div>
+    <h2 class="section-title" data-i18n="edu.title">Academic <em>foundations</em></h2>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card reveal reveal-delay-1">
+      <div class="edu-year">2022</div>
+      <div class="edu-degree" data-i18n="edu1.degree">Research Master's in Distributed Computing</div>
+      <div class="edu-school">University of Sousse, Tunisia</div>
+      <p class="edu-detail" data-i18n="edu1.detail">Research on distributed algorithms — published paper on distributed data processing achieving +20% system performance. Thesis on scalability in distributed systems with experimental design and data analysis.</p>
+    </div>
+    <div class="edu-card reveal reveal-delay-2">
+      <div class="edu-year">2020</div>
+      <div class="edu-degree" data-i18n="edu2.degree">Bachelor's Degree in Computer Science</div>
+      <div class="edu-school">University of Sousse, Tunisia</div>
+      <p class="edu-detail" data-i18n="edu2.detail">Algorithms, data structures, databases. Active participation in hackathons and programming competitions.</p>
+    </div>
+  </div>
+  <div class="cert-grid">
+    <div class="cert-card reveal reveal-delay-1">
+      <div class="cert-icon">🏆</div>
+      <div>
+        <div class="cert-name">Certified Scrum Master (CSM)</div>
+        <div class="cert-issuer">Simplilearn</div>
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-icon">☕</div>
+      <div>
+        <div class="cert-name">Certified Java Developer</div>
+        <div class="cert-issuer">Microsoft</div>
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-3">
+      <div class="cert-icon">💻</div>
+      <div>
+        <div class="cert-name">Certified C# Developer</div>
+        <div class="cert-issuer">Microsoft</div>
+      </div>
+    </div>
+    <div class="cert-card reveal reveal-delay-4">
+      <div class="cert-icon">🗄️</div>
+      <div>
+        <div class="cert-name">SQL Developer</div>
+        <div class="cert-issuer">Simplilearn</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-wrapper">
+    <div class="contact-text reveal">
+      <div class="section-tag" data-i18n="contact.tag">Contact</div>
+      <h3 data-i18n="contact.title">Let's build<br/>something great.</h3>
+      <p data-i18n="contact.desc">Currently open to remote, hybrid, or relocation opportunities in Europe and the Gulf. If you're looking for a senior backend engineer who actually cares about architecture quality — let's talk.</p>
+      <div class="contact-links">
+        <a href="mailto:khabir.mohamed12@gmail.com" class="contact-item">
+          <div class="contact-item-icon">📧</div>
+          <div class="contact-item-text">
+            <span data-i18n="contact.email">Email</span>
+            <strong>khabir.mohamed12@gmail.com</strong>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/mohamedkhabir" target="_blank" class="contact-item">
+          <div class="contact-item-icon">💼</div>
+          <div class="contact-item-text">
+            <span>LinkedIn</span>
+            <strong>linkedin.com/in/mohamedkhabir</strong>
+          </div>
+        </a>
+        <a href="https://github.com/mohamedkhabir" target="_blank" class="contact-item">
+          <div class="contact-item-icon">🐙</div>
+          <div class="contact-item-text">
+            <span>GitHub</span>
+            <strong>github.com/mohamedkhabir</strong>
+          </div>
+        </a>
+        <a href="tel:+21693831879" class="contact-item">
+          <div class="contact-item-icon">📱</div>
+          <div class="contact-item-text">
+            <span data-i18n="contact.phone">Phone / WhatsApp</span>
+            <strong>+216 93 831 879</strong>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-code reveal reveal-delay-2">
+      <div class="code-comment">// Mohamed Khabir — Senior Java Backend Engineer</div>
+      <br/>
+      <div><span class="code-key">const</span> <span class="code-val">engineer</span> = {</div>
+      <div>&nbsp;&nbsp;<span class="code-key">name</span>: <span class="code-str">"Mohamed Khabir"</span>,</div>
+      <div>&nbsp;&nbsp;<span class="code-key">location</span>: <span class="code-str">"Tataouine, Tunisia"</span>,</div>
+      <div>&nbsp;&nbsp;<span class="code-key">experience</span>: <span class="code-str">"7+ years"</span>,</div>
+      <div>&nbsp;&nbsp;<span class="code-key">stack</span>: [</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"Java/Spring Boot"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"Apache Kafka"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"PostgreSQL"</span>,</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"Docker + CI/CD"</span></div>
+      <div>&nbsp;&nbsp;],</div>
+      <div>&nbsp;&nbsp;<span class="code-key">languages</span>: [<span class="code-str">"AR"</span>, <span class="code-str">"FR"</span>, <span class="code-str">"EN"</span>],</div>
+      <div>&nbsp;&nbsp;<span class="code-key">available</span>: <span class="code-val">true</span>,</div>
+      <div>&nbsp;&nbsp;<span class="code-key">openTo</span>: [<span class="code-str">"Remote"</span>, <span class="code-str">"EU"</span>, <span class="code-str">"Gulf"</span>]</div>
+      <div>};</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="footer-copy">© 2025 Mohamed Khabir. All rights reserved.</div>
+  <div class="footer-made">Built with <span>♥</span> and a lot of ☕</div>
+</footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* ── PARTICLES CANVAS ──────────────────────────────── */
+(function(){
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, dots = [];
+  const COLORS = ['#00e5c3','#8b6fff','#ffd166'];
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  function init(){
+    dots = [];
+    for(let i=0;i<60;i++){
+      dots.push({
+        x: Math.random()*W, y: Math.random()*H,
+        r: Math.random()*1.5+.5,
+        vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3,
+        col: COLORS[Math.floor(Math.random()*COLORS.length)],
+        o: Math.random()*.5+.1
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    /* connections */
+    for(let i=0;i<dots.length;i++){
+      for(let j=i+1;j<dots.length;j++){
+        const dx=dots[i].x-dots[j].x, dy=dots[i].y-dots[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<160){
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x,dots[i].y);
+          ctx.lineTo(dots[j].x,dots[j].y);
+          ctx.strokeStyle='rgba(0,229,195,'+(1-d/160)*.12+')';
+          ctx.lineWidth=.5;
+          ctx.stroke();
+        }
+      }
+    }
+    /* dots */
+    dots.forEach(d=>{
+      ctx.beginPath();
+      ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+      ctx.fillStyle=d.col;
+      ctx.globalAlpha=d.o;
+      ctx.fill();
+      ctx.globalAlpha=1;
+      d.x+=d.vx; d.y+=d.vy;
+      if(d.x<0||d.x>W) d.vx*=-1;
+      if(d.y<0||d.y>H) d.vy*=-1;
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', ()=>{ resize(); init(); });
+  resize(); init(); draw();
+})();
+
+/* ── TYPED TEXT ─────────────────────────────────────── */
+const typedStrings = {
+  en: [
+    'Senior Java Backend Engineer',
+    'Microservices Architect',
+    'Apache Kafka Specialist',
+    'QA Automation Engineer',
+    'Distributed Systems Builder'
+  ],
+  fr: [
+    'Ingénieur Java Backend Senior',
+    'Architecte Microservices',
+    'Spécialiste Apache Kafka',
+    'Ingénieur QA Automation',
+    'Expert Systèmes Distribués'
+  ]
+};
+let currentLang = 'en';
+let si = 0, ci = 0, deleting = false, pauseTimer = null;
+const el = document.getElementById('typed-text');
+function type(){
+  const strs = typedStrings[currentLang];
+  const str = strs[si];
+  if(!deleting){
+    el.textContent = str.slice(0, ci+1);
+    ci++;
+    if(ci === str.length){
+      deleting = true;
+      pauseTimer = setTimeout(type, 1800);
+      return;
+    }
+  } else {
+    el.textContent = str.slice(0, ci-1);
+    ci--;
+    if(ci === 0){
+      deleting = false;
+      si = (si+1) % strs.length;
+    }
+  }
+  setTimeout(type, deleting ? 45 : 80);
+}
+type();
+
+/* ── SCROLL REVEAL ──────────────────────────────────── */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: .08 });
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+/* ── LANGUAGE SYSTEM ────────────────────────────────── */
+const i18n = {
+  en: {
+    'nav.about':     'About',
+    'nav.skills':    'Skills',
+    'nav.exp':       'Experience',
+    'nav.proj':      'Projects',
+    'nav.contact':   'Contact',
+    'hero.badge':    'Available for new opportunities',
+    'hero.badge2':   'Open to opportunities',
+    'hero.desc':     'Senior Java Backend Engineer building high-load distributed systems for clients across the Gulf, Europe and MENA. 7+ years shipping production platforms from architecture to deployment — independently.',
+    'hero.cta1':     "Let's work together",
+    'hero.cta2':     'View GitHub →',
+    'hero.stat1':    'Years exp.',
+    'hero.stat2':    'Live platforms',
+    'hero.stat3':    'Countries',
+    'about.tag':     'About me',
+    'about.title':   'Distributed systems <em>done right</em>',
+    'about.p1':      "I build backends that don't fall over when 10,000 users show up at once. With a <strong>Research Master's in Distributed Computing</strong> from University of Sousse and 7+ years in production environments, I've developed a taste for solving problems that most engineers avoid — high concurrency, event-driven architecture, real-time systems at scale.",
+    'about.p2':      "I've shipped platforms used daily in <strong>Saudi Arabia, Oman, UAE and Tunisia</strong> — across industries like logistics, ERP, fintech, and e-commerce. I don't just write code; I own the full delivery cycle from architecture decisions to Nginx configs to Grafana dashboards.",
+    'about.p3':      'Trilingual in Arabic, French and English. I thrive equally in Gulf and European project contexts — which means I understand the market, the expectations, and the compliance requirements (yes, ZATCA included 😄).',
+    'card1.title':   'Event-Driven Architecture',
+    'card1.desc':    'Kafka-based microservices with guaranteed delivery — no message ever lost, even when services go down.',
+    'card2.title':   'Multi-Tenant Systems',
+    'card2.desc':    'Complex PostgreSQL schemas with tenant isolation, privilege management, and query optimization built-in.',
+    'card3.title':   'AI Integration',
+    'card3.desc':    'Built natural-language-to-SQL systems using the Anthropic API — any question, any database, no technical knowledge needed.',
+    'card4.title':   'Load Testing & Monitoring',
+    'card4.desc':    'Grafana + custom load test scripts to find the breaking point before production does it for you.',
+    'skills.tag':    'Tech stack',
+    'skills.title':  'Tools I <em>actually ship with</em>',
+    'sk.backend':    'Backend',
+    'sk.db':         'Databases',
+    'sk.msg':        'Messaging & Events',
+    'sk.devops':     'CI/CD & DevOps',
+    'sk.cloud':      'Cloud & Payments',
+    'sk.qa':         'QA & Testing',
+    'exp.tag':       'Experience',
+    'exp.title':     "Where I've <em>shipped things</em>",
+    'present':       'Present',
+    'label.challenge': 'Challenge',
+    'label.solution':  'Solution',
+    'label.result':    'Result',
+    'j1.title':  'Java Backend Developer & ERP Integration',
+    'j1.type':   'Technical Project Lead',
+    'j1.b1':     'Built the Java/Spring Boot backend of a multi-tenant ERP platform designed to handle high user load — 7 modules (Dashboard, CRM, Super Admin, Help Center, Support, Website, Mobile).',
+    'j1.b2':     'Implemented microservices with Apache Kafka for event-driven communication — no message lost even when a service goes down.',
+    'j1.b3':     'Integrated real-time communication via WebRTC/LiveKit for video/audio, STOMP over WebSocket for chat, and Grafana for full stack monitoring.',
+    'j1.b4':     'Built a natural-language-to-SQL AI system using Anthropic API — users ask questions in plain language, the system queries the database directly.',
+    'j1.b5':     'Solved ZATCA e-invoicing integration (Saudi government mandate) by reverse-engineering the SDK over 4–6 days with zero official support.',
+    'j1.c': 'ZATCA SDK with no usable documentation',
+    'j1.s': 'Reverse-engineered the SDK, learned e-invoicing standards from scratch',
+    'j1.r': 'Full ZATCA compliance, Saudi government approved',
+    'j2.title': 'Java Spring Boot Backend Developer',
+    'j2.type':  'Taxi Booking Platform',
+    'j2.b1':    'Complete Java/Spring Boot backend — real-time ride notifications via WebSocket, Cron Jobs, and automated mailing.',
+    'j2.b2':    "Discovered Uber's H3 SDK to replace Google Maps — reduced infrastructure costs significantly and made the project financially viable.",
+    'j2.b3':    'Replaced RabbitMQ with Apache Kafka for driver/passenger matching — zero message loss, real-time performance.',
+    'j2.b4':    'Solved concurrency issues revealed by load tests via Grafana monitoring, then migrated to higher-resource infrastructure.',
+    'j2.c': 'Google Maps costs killing project ROI',
+    'j2.s': "Adopted Uber's H3 hexagonal grid SDK",
+    'j2.r': 'Massive cost reduction, project profitable again',
+    'j3.title': 'Java Spring Boot Backend Developer',
+    'j3.type':  'Tender Platform (Gov + Private)',
+    'j3.b1':    'Multi-tenant Spring Boot backend on PostgreSQL — adapted for both government and private procurement workflows.',
+    'j3.b2':    'Sub-user system with fine-grained privilege management, real-time chat, CMS for tender forms, complete Swagger docs.',
+    'j4.title': 'Java Spring Boot Backend Developer',
+    'j4.type':  'SaaS Coaching Platform',
+    'j4.b1':    'Multi-tenant platform for online course sales (live/recorded), consultations, and e-wallet management.',
+    'j4.b2':    'Integrated Moyasar, Stripe and HyperPay — covering both local and international payment markets.',
+    'j5.title': '.NET Backend Developer',
+    'j5.type':  'Product Approval & Online Printing',
+    'j5.b1':    'C#/.NET + PostgreSQL APIs for complex approval workflows, push notifications via FCM, real-time communication.',
+    'j5.b2':    'Online printing platform with img.ly 3D preview, Thawani payment gateway, Redis caching, Azure deployment.',
+    'j6.title': 'Java Consultant',
+    'j6.type':  'Logistics Platform',
+    'j6.b1':    'RESTful APIs for parcel shipping with carrier selection and home pickup, OAuth auth, one-to-one chat, Stripe.',
+    'j6.b2':    'Code reviews and technical mentoring of junior developers — Angular components and GitLab CI/CD pipelines.',
+    'proj.tag':  'Projects',
+    'proj.title':"Things I've <em>built & owned</em>",
+    'pr1.desc': 'Multi-tenant ERP with 7 modules, Kafka event-driven architecture, ZATCA e-invoicing compliance, AI-powered natural language database queries via Anthropic API, WebRTC video calls with LiveKit.',
+    'pr2.desc': "Real-time taxi booking app — replaced Google Maps with Uber's H3 hexagonal grid SDK, replaced RabbitMQ with Kafka for real-time matching, solved concurrency issues under load via Grafana monitoring.",
+    'pr3.desc': 'Multi-tenant government tender platform — sub-user privilege system, CMS for tender forms, real-time chat, complete Swagger documentation, SQL-optimized for high query loads.',
+    'pr4.desc': 'SaaS coaching platform — live/recorded course sales, e-wallet, multi-payment gateway support (Stripe, Moyasar, HyperPay), multi-tenant Spring Boot architecture.',
+    'pr5.desc': 'Online printing platform with real-time 3D product preview via img.ly, complete invoicing system, Thawani payment gateway, C#/.NET + PostgreSQL backend deployed on Azure.',
+    'pr6.desc': 'Logistics platform for parcel shipping with carrier selection and home pickup. OAuth, one-to-one chat, Stripe payments, Angular frontend, GitLab CI/CD, junior developer mentoring.',
+    'pr7.desc': 'Technical challenge — Real-Time Payment Status API built with Java 17, Spring Boot 3.x, PostgreSQL, Kafka, and Docker. Idempotency with pessimistic locking, DynamicResponse DTO pattern, full test coverage.',
+    'edu.tag':   'Education & Certifications',
+    'edu.title': 'Academic <em>foundations</em>',
+    'edu1.degree': "Research Master's in Distributed Computing",
+    'edu1.detail': 'Research on distributed algorithms — published paper on distributed data processing achieving +20% system performance. Thesis on scalability in distributed systems with experimental design and data analysis.',
+    'edu2.degree': "Bachelor's Degree in Computer Science",
+    'edu2.detail': 'Algorithms, data structures, databases. Active participation in hackathons and programming competitions.',
+    'contact.tag':   'Contact',
+    'contact.title': "Let's build<br/>something great.",
+    'contact.desc':  "Currently open to remote, hybrid, or relocation opportunities in Europe and the Gulf. If you're looking for a senior backend engineer who actually cares about architecture quality — let's talk.",
+    'contact.email': 'Email',
+    'contact.phone': 'Phone / WhatsApp',
+  },
+  fr: {
+    'nav.about':     'À propos',
+    'nav.skills':    'Compétences',
+    'nav.exp':       'Expérience',
+    'nav.proj':      'Projets',
+    'nav.contact':   'Contact',
+    'hero.badge':    'Disponible pour de nouvelles opportunités',
+    'hero.badge2':   'Ouvert aux opportunités',
+    'hero.desc':     "Ingénieur Java Backend Senior — je construis des systèmes distribués haute charge pour des clients en Europe, dans le Golfe et en Afrique du Nord. 7+ ans à livrer des plateformes en production de l'architecture au déploiement, en autonomie.",
+    'hero.cta1':     'Travaillons ensemble',
+    'hero.cta2':     'Voir GitHub →',
+    'hero.stat1':    "Ans d'exp.",
+    'hero.stat2':    'Plateformes live',
+    'hero.stat3':    'Pays',
+    'about.tag':     'À propos',
+    'about.title':   'Des systèmes distribués <em>bien construits</em>',
+    'about.p1':      "Je construis des backends qui ne s'effondrent pas quand 10 000 utilisateurs arrivent en même temps. Avec un <strong>Master Recherche en Informatique Distribuée</strong> de l'Université de Sousse et 7+ ans en environnements de production, j'ai développé un goût particulier pour résoudre les problèmes que la plupart des ingénieurs évitent — concurrence élevée, architecture événementielle, systèmes temps réel à grande échelle.",
+    'about.p2':      "J'ai livré des plateformes utilisées quotidiennement en <strong>Arabie Saoudite, Oman, UAE et Tunisie</strong> — dans des secteurs comme la logistique, l'ERP, la fintech et l'e-commerce. Je ne fais pas que coder ; je prends en charge le cycle complet de livraison, de l'architecture aux configs Nginx jusqu'aux dashboards Grafana.",
+    'about.p3':      'Trilingue arabe, français et anglais. Je m\'adapte parfaitement aux contextes du Golfe et européens — ce qui signifie que je comprends le marché, les attentes et les exigences de conformité (oui, ZATCA inclus 😄).',
+    'card1.title':   'Architecture Événementielle',
+    'card1.desc':    'Microservices basés sur Kafka avec livraison garantie — aucun message jamais perdu, même quand un service tombe.',
+    'card2.title':   'Systèmes Multi-Tenant',
+    'card2.desc':    'Schémas PostgreSQL complexes avec isolation des tenants, gestion des privilèges et optimisation des requêtes intégrées.',
+    'card3.title':   'Intégration IA',
+    'card3.desc':    "J'ai construit des systèmes langage naturel vers SQL via l'API Anthropic — n'importe quelle question, n'importe quelle base, sans connaissance technique.",
+    'card4.title':   'Load Testing & Monitoring',
+    'card4.desc':    'Grafana + scripts de load test sur mesure pour trouver le point de rupture avant que la production ne le fasse à votre place.',
+    'skills.tag':    'Stack technique',
+    'skills.title':  'Outils avec lesquels je <em>livre vraiment</em>',
+    'sk.backend':    'Backend',
+    'sk.db':         'Bases de données',
+    'sk.msg':        'Messagerie & Événements',
+    'sk.devops':     'CI/CD & DevOps',
+    'sk.cloud':      'Cloud & Paiements',
+    'sk.qa':         'QA & Tests',
+    'exp.tag':       'Expérience',
+    'exp.title':     'Où j\'ai <em>livré des choses</em>',
+    'present':       'Présent',
+    'label.challenge': 'Défi',
+    'label.solution':  'Solution',
+    'label.result':    'Résultat',
+    'j1.title': 'Développeur Java Backend & Intégration ERP',
+    'j1.type':  'Chef de Projet Technique',
+    'j1.b1':    "Construit le backend Java/Spring Boot d'une plateforme ERP multi-tenant conçue pour une forte charge — 7 modules (Dashboard, CRM, Super Admin, Help Center, Support, Site Web, Mobile).",
+    'j1.b2':    "Mis en place des microservices avec Apache Kafka pour la communication événementielle — aucun message perdu même quand un service est indisponible.",
+    'j1.b3':    "Intégré la communication temps réel via WebRTC/LiveKit pour la vidéo/audio, STOMP over WebSocket pour le chat, et Grafana pour le monitoring complet.",
+    'j1.b4':    "Construit un système IA langage naturel vers SQL via l'API Anthropic — les utilisateurs posent des questions en langage simple, le système interroge directement la base.",
+    'j1.b5':    "Résolu l'intégration de la facturation électronique ZATCA (obligation gouvernementale saoudienne) en reverse-engineerant le SDK sur 4-6 jours sans support officiel.",
+    'j1.c': 'SDK ZATCA sans documentation utilisable',
+    'j1.s': 'Reverse-engineering du SDK, apprentissage des standards de facturation électronique from scratch',
+    'j1.r': 'Conformité ZATCA complète, approuvée par le gouvernement saoudien',
+    'j2.title': 'Développeur Java Spring Boot Backend',
+    'j2.type':  'Application de Réservation de Taxi',
+    'j2.b1':    'Backend Java/Spring Boot complet — notifications de courses en temps réel via WebSocket, Cron Jobs et mailing automatique.',
+    'j2.b2':    "Découvert le SDK H3 d'Uber pour remplacer Google Maps — réduction significative des coûts d'infrastructure et projet redevenu rentable.",
+    'j2.b3':    'Remplacé RabbitMQ par Apache Kafka pour le matching conducteur/passager — zéro perte de messages, performance temps réel.',
+    'j2.b4':    'Résolu les problèmes de concurrence révélés par les load tests via Grafana, puis migré vers une infrastructure plus puissante.',
+    'j2.c': 'Coûts Google Maps rendant le projet non rentable',
+    'j2.s': "Adoption du SDK hexagonal H3 d'Uber",
+    'j2.r': 'Réduction massive des coûts, projet de nouveau rentable',
+    'j3.title': 'Développeur Java Spring Boot Backend',
+    'j3.type':  'Plateforme d\'Appels d\'Offres (Gov + Privé)',
+    'j3.b1':    "Backend Spring Boot multi-tenant sur PostgreSQL — adapté aux workflows d'appels d'offres gouvernementaux et privés.",
+    'j3.b2':    'Système de sous-utilisateurs avec gestion fine des privilèges, chat temps réel, CMS pour les formulaires, Swagger complet.',
+    'j4.title': 'Développeur Java Spring Boot Backend',
+    'j4.type':  'Plateforme SaaS pour Coachs',
+    'j4.b1':    'Plateforme multi-tenant pour la vente de cours en ligne (live/enregistrés), consultations et portefeuille électronique.',
+    'j4.b2':    'Intégré Moyasar, Stripe et HyperPay — couvrant les marchés locaux et internationaux.',
+    'j5.title': 'Développeur .NET Backend',
+    'j5.type':  'Approbation Produits & Impression en Ligne',
+    'j5.b1':    'APIs C#/.NET + PostgreSQL pour des workflows d\'approbation complexes, notifications push FCM, communication temps réel.',
+    'j5.b2':    'Plateforme d\'impression en ligne avec prévisualisation 3D via img.ly, passerelle Thawani, cache Redis, déploiement Azure.',
+    'j6.title': 'Consultant Java',
+    'j6.type':  'Plateforme Logistique',
+    'j6.b1':    'APIs RESTful pour l\'envoi de colis avec sélection du transporteur et ramassage à domicile, auth OAuth, chat one-to-one, Stripe.',
+    'j6.b2':    'Revues de code et mentorat technique des développeurs juniors — composants Angular et pipelines GitLab CI/CD.',
+    'proj.tag':   'Projets',
+    'proj.title': 'Ce que j\'ai <em>construit & livré</em>',
+    'pr1.desc': "ERP multi-tenant avec 7 modules, architecture Kafka événementielle, conformité ZATCA, requêtes BDD en langage naturel via l'API Anthropic, appels vidéo WebRTC avec LiveKit.",
+    'pr2.desc': "Application de taxi temps réel — remplacement de Google Maps par le SDK hexagonal H3 d'Uber, remplacement de RabbitMQ par Kafka pour le matching temps réel, résolution de problèmes de concurrence sous charge via Grafana.",
+    'pr3.desc': "Plateforme d'appels d'offres gouvernementaux multi-tenant — système de sous-utilisateurs avec privilèges, CMS pour les formulaires, chat temps réel, Swagger complet, SQL optimisé.",
+    'pr4.desc': 'Plateforme SaaS de coaching — vente de cours live/enregistrés, portefeuille électronique, multi-passerelles de paiement (Stripe, Moyasar, HyperPay), architecture Spring Boot multi-tenant.',
+    'pr5.desc': 'Plateforme d\'impression en ligne avec prévisualisation 3D temps réel via img.ly, système de facturation complet, passerelle Thawani, backend C#/.NET + PostgreSQL sur Azure.',
+    'pr6.desc': 'Plateforme logistique pour l\'envoi de colis avec sélection du transporteur. OAuth, chat one-to-one, paiement Stripe, frontend Angular, GitLab CI/CD, mentorat juniors.',
+    'pr7.desc': 'Challenge technique — API de statut de paiement temps réel en Java 17, Spring Boot 3.x, PostgreSQL, Kafka et Docker. Idempotence avec verrouillage pessimiste, pattern DynamicResponse DTO, couverture de tests complète.',
+    'edu.tag':   'Formation & Certifications',
+    'edu.title': 'Bases <em>académiques</em>',
+    'edu1.degree': 'Master Recherche en Informatique Distribuée',
+    'edu1.detail': "Recherche sur les algorithmes distribués — publication sur le traitement distribué des données (+20% de performance système). Thèse sur la scalabilité dans les systèmes distribués avec conception expérimentale et analyse de données.",
+    'edu2.degree': 'Licence Fondamentale en Informatique',
+    'edu2.detail': 'Algorithmes, structures de données, bases de données. Participation active aux hackathons et compétitions de programmation.',
+    'contact.tag':   'Contact',
+    'contact.title': 'Construisons<br/>quelque chose de grand.',
+    'contact.desc':  "Actuellement disponible pour des opportunités remote, hybrides ou avec relocation en Europe et dans le Golfe. Si vous cherchez un ingénieur backend senior qui prend vraiment l'architecture au sérieux, parlons-en.",
+    'contact.email': 'Email',
+    'contact.phone': 'Téléphone / WhatsApp',
+  }
+};
+
+function applyLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.getElementById('btn-en').className = 'lang-btn' + (lang==='en'?' active':'');
+  document.getElementById('btn-fr').className = 'lang-btn' + (lang==='fr'?' active':'');
+  const tr = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(tr[key] !== undefined){
+      el.innerHTML = tr[key];
+    }
+  });
+  si = 0; ci = 0; deleting = false;
+}
+
+function toggleLang(){
+  applyLang(currentLang === 'en' ? 'fr' : 'en');
+}
+
+/* ── NAV HIGHLIGHT ON SCROLL ────────────────────────── */
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', ()=>{
+  let cur = '';
+  sections.forEach(s=>{
+    if(window.scrollY >= s.offsetTop - 120) cur = s.id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--cyan)' : '';
+  });
+}, {passive:true});
+</script>
+</body>
+</html>
